@@ -1,0 +1,187 @@
+'use client'
+
+import React, { forwardRef } from 'react'
+
+/* ─── types ──────────────────────────────────────────────────── */
+
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
+export type ButtonSize    = 'sm' | 'md' | 'lg'
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?:  ButtonVariant
+  size?:     ButtonSize
+  loading?:  boolean
+  /** Renders an icon to the left of the label */
+  iconLeft?: React.ReactNode
+  /** Renders an icon to the right of the label */
+  iconRight?: React.ReactNode
+  /** Renders just an icon with accessible label — hides children visually */
+  iconOnly?: boolean
+}
+
+/* ─── style maps — only semantic tokens ──────────────────────── */
+
+const variantBase: Record<ButtonVariant, string> = {
+  primary:
+    'bg-accent text-content-on-accent border border-transparent ' +
+    'hover:bg-accent-emphasis active:bg-accent-emphasis ' +
+    'disabled:bg-content-disabled disabled:text-content-inverse ' +
+    'disabled:border-transparent disabled:cursor-not-allowed',
+
+  secondary:
+    'bg-surface-raised text-content-primary border border-border ' +
+    'hover:bg-surface-muted hover:border-border-strong ' +
+    'active:bg-surface-muted ' +
+    'disabled:bg-surface-muted disabled:text-content-disabled ' +
+    'disabled:border-border-muted disabled:cursor-not-allowed',
+
+  ghost:
+    'bg-transparent text-content-primary border border-transparent ' +
+    'hover:bg-surface-muted hover:border-border-muted ' +
+    'active:bg-surface-muted ' +
+    'disabled:text-content-disabled disabled:cursor-not-allowed',
+
+  danger:
+    'bg-danger text-content-on-accent border border-transparent ' +
+    'hover:bg-danger-emphasis active:bg-danger-emphasis ' +
+    'disabled:bg-content-disabled disabled:text-content-inverse ' +
+    'disabled:border-transparent disabled:cursor-not-allowed',
+}
+
+const sizeClasses: Record<ButtonSize, string> = {
+  sm: 'h-8  px-3   text-sm  gap-1.5 rounded-sm',
+  md: 'h-10 px-4   text-base gap-2  rounded',
+  lg: 'h-12 px-5   text-lg  gap-2.5 rounded-md',
+}
+
+const iconSizeClasses: Record<ButtonSize, string> = {
+  sm: 'h-8  w-8  rounded-sm',
+  md: 'h-10 w-10 rounded',
+  lg: 'h-12 w-12 rounded-md',
+}
+
+const spinnerSize: Record<ButtonSize, number> = {
+  sm: 14,
+  md: 16,
+  lg: 18,
+}
+
+/* ─── spinner ────────────────────────────────────────────────── */
+
+function Spinner({ size, variant }: { size: number; variant: ButtonVariant }) {
+  const color =
+    variant === 'primary' || variant === 'danger'
+      ? 'text-content-on-accent'
+      : 'text-content-secondary'
+  return (
+    <svg
+      className={`animate-spin ${color}`}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        className="opacity-25"
+        cx="12" cy="12" r="10"
+        stroke="currentColor"
+        strokeWidth="3"
+      />
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+      />
+    </svg>
+  )
+}
+
+/* ─── component ──────────────────────────────────────────────── */
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  function Button(
+    {
+      variant  = 'primary',
+      size     = 'md',
+      loading  = false,
+      iconLeft,
+      iconRight,
+      iconOnly = false,
+      children,
+      className,
+      disabled,
+      type = 'button',
+      ...rest
+    },
+    ref,
+  ) {
+    const isDisabled = disabled || loading
+
+    const base =
+      'relative inline-flex items-center justify-center font-medium ' +
+      'transition-colors duration-100 select-none whitespace-nowrap ' +
+      // focus-visible ring uses accent token so it always contrasts
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ' +
+      'focus-visible:ring-accent focus-visible:ring-offset-surface-base'
+
+    const sizeClass = iconOnly
+      ? iconSizeClasses[size]
+      : sizeClasses[size]
+
+    return (
+      <button
+        ref={ref}
+        type={type}
+        disabled={isDisabled}
+        aria-disabled={isDisabled}
+        aria-busy={loading}
+        className={[base, variantBase[variant], sizeClass, className]
+          .filter(Boolean)
+          .join(' ')}
+        {...rest}
+      >
+        {/* loading spinner overlays content */}
+        {loading && (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <Spinner size={spinnerSize[size]} variant={variant} />
+          </span>
+        )}
+
+        {/* content — hidden during loading to preserve layout width */}
+        <span
+          className={[
+            'inline-flex items-center gap-inherit',
+            loading ? 'invisible' : '',
+            iconOnly ? 'sr-only' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+          style={{ gap: 'inherit' }}
+        >
+          {iconLeft && (
+            <span className="shrink-0" aria-hidden="true">
+              {iconLeft}
+            </span>
+          )}
+          {children}
+          {iconRight && (
+            <span className="shrink-0" aria-hidden="true">
+              {iconRight}
+            </span>
+          )}
+        </span>
+
+        {/* icon-only renders the icon visibly, children as sr-only */}
+        {iconOnly && (
+          <span className="shrink-0" aria-hidden="true">
+            {iconLeft ?? iconRight}
+          </span>
+        )}
+      </button>
+    )
+  },
+)
+
+Button.displayName = 'Button'
