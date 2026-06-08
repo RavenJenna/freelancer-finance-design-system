@@ -5,7 +5,7 @@ import React, { forwardRef, useId } from 'react'
 /* ─── types ──────────────────────────────────────────────────── */
 
 export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id' | 'type'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   /** Visible label */
   label: string
   /** Hides label visually while remaining accessible */

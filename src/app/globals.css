@@ -1,365 +1,225 @@
 @import "tailwindcss";
 
 /* ============================================================
-   FREELANCER FINANCE — DESIGN TOKENS
-   Single source of truth for all visual primitives.
-   CSS custom properties define semantic values; @theme inline
-   exposes them as Tailwind utility classes.
+   FREELANCER FINANCE — DESIGN TOKENS  (v2 — approved palette)
+   Architecture: raw palette → semantic tokens → @theme inline
    ============================================================ */
 
 /* ------------------------------------------------------------
-   PALETTE — raw named colors (not used directly in components)
+   PALETTE — raw hex values, never used directly in components
    ------------------------------------------------------------ */
 :root {
-  /* Neutrals */
-  --palette-slate-50:  #f8fafc;
-  --palette-slate-100: #f1f5f9;
-  --palette-slate-200: #e2e8f0;
-  --palette-slate-300: #cbd5e1;
-  --palette-slate-400: #94a3b8;
-  --palette-slate-500: #64748b;
-  --palette-slate-600: #475569;
-  --palette-slate-700: #334155;
-  --palette-slate-800: #1e293b;
-  --palette-slate-900: #0f172a;
-  --palette-slate-950: #020617;
+  /* Violet — brand accent */
+  --palette-violet-50:  #F3EEFF;
+  --palette-violet-400: #A78BFA;
+  --palette-violet-500: #8B5CF6;
+  --palette-violet-600: #7C3AED;
+  --palette-violet-700: #6D28D9;
+  --palette-violet-950: #1E1733;
 
-  /* Indigo — brand accent */
-  --palette-indigo-50:  #eef2ff;
-  --palette-indigo-100: #e0e7ff;
-  --palette-indigo-400: #818cf8;
-  --palette-indigo-500: #6366f1;
-  --palette-indigo-600: #4f46e5;
-  --palette-indigo-700: #4338ca;
-  --palette-indigo-900: #312e81;
-  --palette-indigo-950: #1e1b4b;
+  /* Rose — negative / danger states */
+  --palette-rose-400: #FB7185;
+  --palette-rose-500: #F43F5E;
+  --palette-rose-600: #E11D48;
 
-  /* Emerald — spendable bucket */
-  --palette-emerald-50:  #ecfdf5;
-  --palette-emerald-400: #34d399;
-  --palette-emerald-500: #10b981;
-  --palette-emerald-600: #059669;
-  --palette-emerald-950: #022c22;
-
-  /* Violet — tax bucket */
-  --palette-violet-50:  #f5f3ff;
-  --palette-violet-400: #a78bfa;
-  --palette-violet-500: #8b5cf6;
-  --palette-violet-600: #7c3aed;
-  --palette-violet-950: #1e0a3c;
-
-  /* Sky — buffer bucket */
-  --palette-sky-50:  #f0f9ff;
-  --palette-sky-400: #38bdf8;
-  --palette-sky-500: #0ea5e9;
-  --palette-sky-600: #0284c7;
-  --palette-sky-950: #082f49;
-
-  /* Green — success / income */
-  --palette-green-50:  #f0fdf4;
-  --palette-green-400: #4ade80;
-  --palette-green-500: #22c55e;
-  --palette-green-600: #16a34a;
-  --palette-green-950: #052e16;
+  /* Emerald — positive / income */
+  --palette-emerald-400: #34D399;
+  --palette-emerald-500: #10B981;
 
   /* Amber — warning / pending */
-  --palette-amber-50:  #fffbeb;
-  --palette-amber-400: #fbbf24;
-  --palette-amber-500: #f59e0b;
-  --palette-amber-600: #d97706;
-  --palette-amber-950: #1c1002;
+  --palette-amber-400: #FBBF24;
+  --palette-amber-500: #F59E0B;
 
-  /* Red — danger / overdue */
-  --palette-red-50:  #fef2f2;
-  --palette-red-400: #f87171;
-  --palette-red-500: #ef4444;
-  --palette-red-600: #dc2626;
-  --palette-red-950: #1a0707;
+  /* Cyan — spendable bucket */
+  --palette-cyan-400: #22D3EE;
+  --palette-cyan-500: #06B6D4;
+
+  /* Blue — buffer bucket */
+  --palette-blue-400: #60A5FA;
+  --palette-blue-500: #3B82F6;
+
+  /* Indigo — tax bucket */
+  --palette-indigo-400: #818CF8;
+  --palette-indigo-700: #4338CA;
 }
 
 /* ------------------------------------------------------------
-   SEMANTIC TOKENS — LIGHT MODE (default)
+   SEMANTIC TOKENS — LIGHT MODE
    ------------------------------------------------------------ */
 :root {
   /* Surfaces */
-  --surface-base:    #ffffff;
-  --surface-raised:  var(--palette-slate-50);
-  --surface-overlay: #ffffff;
-  --surface-muted:   var(--palette-slate-100);
+  --surface-app:    #F6F6F9;   /* page canvas */
+  --surface-base:   #FFFFFF;   /* cards, modals */
+  --surface-raised: #FFFFFF;   /* elevated cards */
+  /* supplementary: hover backgrounds for interactive elements */
+  --surface-hover:  #EDEDF2;
 
   /* Content */
-  --content-primary:   var(--palette-slate-900);
-  --content-secondary: var(--palette-slate-600);
-  --content-tertiary:  var(--palette-slate-400);
-  --content-disabled:  var(--palette-slate-300);
-  --content-inverse:   #ffffff;
-  --content-on-accent: #ffffff;
+  --content-primary:   #18181F;
+  --content-secondary: #56565F;
+  --content-tertiary:  #9A9AA6;
+  --content-on-accent: #FFFFFF;  /* text on filled accent buttons */
+  /* supplementary: disabled text */
+  --content-disabled:  #C4C4CC;
 
-  /* Accent */
-  --accent-default:  var(--palette-indigo-500);
-  --accent-subtle:   var(--palette-indigo-50);
-  --accent-emphasis: var(--palette-indigo-600);
-  --accent-content:  var(--palette-indigo-600);
+  /* Accent — brand violet */
+  --accent:        var(--palette-violet-600);  /* #7C3AED */
+  --accent-hover:  var(--palette-violet-700);  /* #6D28D9 */
+  --accent-subtle: var(--palette-violet-50);   /* #F3EEFF */
 
   /* Borders */
-  --border-default: var(--palette-slate-200);
-  --border-muted:   var(--palette-slate-100);
-  --border-strong:  var(--palette-slate-400);
+  --border-default: #E4E4EA;
+  --border-strong:  #9A9AA6;
 
-  /* Success — received income, on-time payments */
-  --success-default:  var(--palette-green-500);
-  --success-subtle:   var(--palette-green-50);
-  --success-emphasis: var(--palette-green-600);
-  --success-content:  var(--palette-green-600);
+  /* Money states */
+  --positive:       var(--palette-emerald-500);  /* #10B981 */
+  --negative:       var(--palette-rose-500);     /* #F43F5E */
+  --negative-hover: var(--palette-rose-600);     /* #E11D48  – for danger hover */
+  --warning:        var(--palette-amber-500);    /* #F59E0B */
 
-  /* Warning — pending, low balance */
-  --warning-default:  var(--palette-amber-500);
-  --warning-subtle:   var(--palette-amber-50);
-  --warning-emphasis: var(--palette-amber-600);
-  --warning-content:  var(--palette-amber-600);
-
-  /* Danger — overdue, overspent */
-  --danger-default:  var(--palette-red-500);
-  --danger-subtle:   var(--palette-red-50);
-  --danger-emphasis: var(--palette-red-600);
-  --danger-content:  var(--palette-red-600);
-
-  /* Bucket — Spendable (money available to spend now) */
-  --spendable-default:  var(--palette-emerald-500);
-  --spendable-subtle:   var(--palette-emerald-50);
-  --spendable-emphasis: var(--palette-emerald-600);
-  --spendable-content:  var(--palette-emerald-600);
-
-  /* Bucket — Tax (money reserved for tax obligations) */
-  --tax-default:  var(--palette-violet-500);
-  --tax-subtle:   var(--palette-violet-50);
-  --tax-emphasis: var(--palette-violet-600);
-  --tax-content:  var(--palette-violet-600);
-
-  /* Bucket — Buffer (emergency fund / safety net) */
-  --buffer-default:  var(--palette-sky-500);
-  --buffer-subtle:   var(--palette-sky-50);
-  --buffer-emphasis: var(--palette-sky-600);
-  --buffer-content:  var(--palette-sky-600);
+  /* Finance buckets */
+  --bucket-spendable: var(--palette-cyan-500);    /* #06B6D4 */
+  --bucket-buffer:    var(--palette-blue-500);    /* #3B82F6 */
+  --bucket-tax:       var(--palette-indigo-700);  /* #4338CA */
 }
 
 /* ------------------------------------------------------------
    SEMANTIC TOKENS — DARK MODE
-   Activated by OS preference or `class="dark"` on <html>
+   Activated by OS preference; overridden by data-theme="dark"
    ------------------------------------------------------------ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    /* Surfaces */
-    --surface-base:    #0a0b0f;
-    --surface-raised:  #141620;
-    --surface-overlay: #1c1e2d;
-    --surface-muted:   #1e2235;
+    --surface-app:    #0A0A0E;
+    --surface-base:   #0E0E14;
+    --surface-raised: #16161D;
+    --surface-hover:  #1E1E27;
 
-    /* Content */
-    --content-primary:   var(--palette-slate-100);
-    --content-secondary: var(--palette-slate-400);
-    --content-tertiary:  var(--palette-slate-600);
-    --content-disabled:  var(--palette-slate-700);
-    --content-inverse:   var(--palette-slate-900);
-    --content-on-accent: #ffffff;
+    --content-primary:   #F4F4F7;
+    --content-secondary: #9A9AA6;
+    --content-tertiary:  #6A6A75;
+    /* NOTE: on-accent flips to near-black because accent brightens in dark mode */
+    --content-on-accent: #0E0E14;
+    --content-disabled:  #3A3A45;
 
-    /* Accent */
-    --accent-default:  var(--palette-indigo-400);
-    --accent-subtle:   var(--palette-indigo-950);
-    --accent-emphasis: var(--palette-indigo-500);
-    --accent-content:  var(--palette-indigo-400);
+    --accent:        var(--palette-violet-400);  /* #A78BFA */
+    --accent-hover:  var(--palette-violet-500);  /* #8B5CF6 */
+    --accent-subtle: #1E1733;
 
-    /* Borders */
-    --border-default: var(--palette-slate-700);
-    --border-muted:   var(--palette-slate-800);
-    --border-strong:  var(--palette-slate-500);
+    --border-default: #26262F;
+    --border-strong:  #3A3A45;
 
-    /* Success */
-    --success-default:  var(--palette-green-400);
-    --success-subtle:   var(--palette-green-950);
-    --success-emphasis: var(--palette-green-500);
-    --success-content:  var(--palette-green-400);
+    --positive:       var(--palette-emerald-400);  /* #34D399 */
+    --negative:       var(--palette-rose-400);     /* #FB7185 */
+    --negative-hover: var(--palette-rose-500);     /* #F43F5E */
+    --warning:        var(--palette-amber-400);    /* #FBBF24 */
 
-    /* Warning */
-    --warning-default:  var(--palette-amber-400);
-    --warning-subtle:   var(--palette-amber-950);
-    --warning-emphasis: var(--palette-amber-500);
-    --warning-content:  var(--palette-amber-400);
-
-    /* Danger */
-    --danger-default:  var(--palette-red-400);
-    --danger-subtle:   var(--palette-red-950);
-    --danger-emphasis: var(--palette-red-500);
-    --danger-content:  var(--palette-red-400);
-
-    /* Bucket — Spendable */
-    --spendable-default:  var(--palette-emerald-400);
-    --spendable-subtle:   var(--palette-emerald-950);
-    --spendable-emphasis: var(--palette-emerald-500);
-    --spendable-content:  var(--palette-emerald-400);
-
-    /* Bucket — Tax */
-    --tax-default:  var(--palette-violet-400);
-    --tax-subtle:   var(--palette-violet-950);
-    --tax-emphasis: var(--palette-violet-500);
-    --tax-content:  var(--palette-violet-400);
-
-    /* Bucket — Buffer */
-    --buffer-default:  var(--palette-sky-400);
-    --buffer-subtle:   var(--palette-sky-950);
-    --buffer-emphasis: var(--palette-sky-500);
-    --buffer-content:  var(--palette-sky-400);
+    --bucket-spendable: var(--palette-cyan-400);    /* #22D3EE */
+    --bucket-buffer:    var(--palette-blue-400);    /* #60A5FA */
+    --bucket-tax:       var(--palette-indigo-400);  /* #818CF8 */
   }
 }
 
-/* Explicit dark mode via data-theme attribute (for JS-controlled toggle) */
+/* Explicit JS-controlled dark mode via data-theme attribute */
 [data-theme="dark"] {
-  --surface-base:    #0a0b0f;
-  --surface-raised:  #141620;
-  --surface-overlay: #1c1e2d;
-  --surface-muted:   #1e2235;
+  --surface-app:    #0A0A0E;
+  --surface-base:   #0E0E14;
+  --surface-raised: #16161D;
+  --surface-hover:  #1E1E27;
 
-  --content-primary:   var(--palette-slate-100);
-  --content-secondary: var(--palette-slate-400);
-  --content-tertiary:  var(--palette-slate-600);
-  --content-disabled:  var(--palette-slate-700);
-  --content-inverse:   var(--palette-slate-900);
-  --content-on-accent: #ffffff;
+  --content-primary:   #F4F4F7;
+  --content-secondary: #9A9AA6;
+  --content-tertiary:  #6A6A75;
+  --content-on-accent: #0E0E14;
+  --content-disabled:  #3A3A45;
 
-  --accent-default:  var(--palette-indigo-400);
-  --accent-subtle:   var(--palette-indigo-950);
-  --accent-emphasis: var(--palette-indigo-500);
-  --accent-content:  var(--palette-indigo-400);
+  --accent:        var(--palette-violet-400);
+  --accent-hover:  var(--palette-violet-500);
+  --accent-subtle: #1E1733;
 
-  --border-default: var(--palette-slate-700);
-  --border-muted:   var(--palette-slate-800);
-  --border-strong:  var(--palette-slate-500);
+  --border-default: #26262F;
+  --border-strong:  #3A3A45;
 
-  --success-default:  var(--palette-green-400);
-  --success-subtle:   var(--palette-green-950);
-  --success-emphasis: var(--palette-green-500);
-  --success-content:  var(--palette-green-400);
+  --positive:       var(--palette-emerald-400);
+  --negative:       var(--palette-rose-400);
+  --negative-hover: var(--palette-rose-500);
+  --warning:        var(--palette-amber-400);
 
-  --warning-default:  var(--palette-amber-400);
-  --warning-subtle:   var(--palette-amber-950);
-  --warning-emphasis: var(--palette-amber-500);
-  --warning-content:  var(--palette-amber-400);
-
-  --danger-default:  var(--palette-red-400);
-  --danger-subtle:   var(--palette-red-950);
-  --danger-emphasis: var(--palette-red-500);
-  --danger-content:  var(--palette-red-400);
-
-  --spendable-default:  var(--palette-emerald-400);
-  --spendable-subtle:   var(--palette-emerald-950);
-  --spendable-emphasis: var(--palette-emerald-500);
-  --spendable-content:  var(--palette-emerald-400);
-
-  --tax-default:  var(--palette-violet-400);
-  --tax-subtle:   var(--palette-violet-950);
-  --tax-emphasis: var(--palette-violet-500);
-  --tax-content:  var(--palette-violet-400);
-
-  --buffer-default:  var(--palette-sky-400);
-  --buffer-subtle:   var(--palette-sky-950);
-  --buffer-emphasis: var(--palette-sky-500);
-  --buffer-content:  var(--palette-sky-400);
+  --bucket-spendable: var(--palette-cyan-400);
+  --bucket-buffer:    var(--palette-blue-400);
+  --bucket-tax:       var(--palette-indigo-400);
 }
 
 /* ------------------------------------------------------------
    TAILWIND THEME — expose CSS vars as Tailwind utilities
-   Using `inline` so they remain as CSS variables at runtime
-   (enables dark-mode flipping without regenerating CSS).
+   @theme inline keeps values as CSS variables at runtime so
+   dark-mode flipping works without regenerating the stylesheet.
    ------------------------------------------------------------ */
 @theme inline {
-  /* --- Color: surfaces --- */
-  --color-surface-base:    var(--surface-base);
-  --color-surface-raised:  var(--surface-raised);
-  --color-surface-overlay: var(--surface-overlay);
-  --color-surface-muted:   var(--surface-muted);
+  /* ── Color: surfaces ─────────────────────────────────────── */
+  --color-surface-app:    var(--surface-app);
+  --color-surface-base:   var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-hover:  var(--surface-hover);
 
-  /* --- Color: content (text) --- */
+  /* ── Color: content ──────────────────────────────────────── */
   --color-content-primary:   var(--content-primary);
   --color-content-secondary: var(--content-secondary);
   --color-content-tertiary:  var(--content-tertiary);
-  --color-content-disabled:  var(--content-disabled);
-  --color-content-inverse:   var(--content-inverse);
   --color-content-on-accent: var(--content-on-accent);
+  --color-content-disabled:  var(--content-disabled);
 
-  /* --- Color: accent --- */
-  --color-accent:          var(--accent-default);
-  --color-accent-subtle:   var(--accent-subtle);
-  --color-accent-emphasis: var(--accent-emphasis);
-  --color-accent-content:  var(--accent-content);
+  /* ── Color: accent ───────────────────────────────────────── */
+  --color-accent:        var(--accent);
+  --color-accent-hover:  var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
 
-  /* --- Color: borders --- */
+  /* ── Color: borders ──────────────────────────────────────── */
   --color-border:        var(--border-default);
-  --color-border-muted:  var(--border-muted);
   --color-border-strong: var(--border-strong);
 
-  /* --- Color: money states --- */
-  --color-success:          var(--success-default);
-  --color-success-subtle:   var(--success-subtle);
-  --color-success-emphasis: var(--success-emphasis);
-  --color-success-content:  var(--success-content);
+  /* ── Color: money states ─────────────────────────────────── */
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-negative-hover: var(--negative-hover);
+  --color-warning:  var(--warning);
 
-  --color-warning:          var(--warning-default);
-  --color-warning-subtle:   var(--warning-subtle);
-  --color-warning-emphasis: var(--warning-emphasis);
-  --color-warning-content:  var(--warning-content);
+  /* ── Color: buckets ──────────────────────────────────────── */
+  --color-bucket-spendable: var(--bucket-spendable);
+  --color-bucket-buffer:    var(--bucket-buffer);
+  --color-bucket-tax:       var(--bucket-tax);
 
-  --color-danger:          var(--danger-default);
-  --color-danger-subtle:   var(--danger-subtle);
-  --color-danger-emphasis: var(--danger-emphasis);
-  --color-danger-content:  var(--danger-content);
-
-  /* --- Color: buckets --- */
-  --color-spendable:          var(--spendable-default);
-  --color-spendable-subtle:   var(--spendable-subtle);
-  --color-spendable-emphasis: var(--spendable-emphasis);
-  --color-spendable-content:  var(--spendable-content);
-
-  --color-tax:          var(--tax-default);
-  --color-tax-subtle:   var(--tax-subtle);
-  --color-tax-emphasis: var(--tax-emphasis);
-  --color-tax-content:  var(--tax-content);
-
-  --color-buffer:          var(--buffer-default);
-  --color-buffer-subtle:   var(--buffer-subtle);
-  --color-buffer-emphasis: var(--buffer-emphasis);
-  --color-buffer-content:  var(--buffer-content);
-
-  /* --- Typography --- */
-  --font-sans:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* ── Typography ──────────────────────────────────────────── */
+  /* next/font variables: --ff-sans (Inter) and --ff-display (Space Grotesk)
+     are injected by layout.tsx; preview-head.html supplies them in Storybook */
+  --font-sans:    var(--ff-sans,    system-ui, -apple-system, sans-serif);
+  --font-display: var(--ff-display, "Space Grotesk", system-ui, sans-serif);
   --font-mono:    ui-monospace, "SF Mono", Menlo, monospace;
-  /* Numeric font stack: prioritizes fonts with good tabular figure support */
-  --font-numeric: "SF Pro Display", "Helvetica Neue", system-ui, sans-serif;
 
-  /* Type scale — extends Tailwind defaults */
-  --text-2xs:              0.625rem;   /* 10px — legal / fine print */
-  --text-2xs--line-height: 1rem;
-  --text-xs:               0.75rem;    /* 12px */
-  --text-xs--line-height:  1rem;
-  --text-sm:               0.875rem;   /* 14px */
-  --text-sm--line-height:  1.25rem;
-  --text-base:             1rem;       /* 16px */
+  /* Type scale */
+  --text-2xs:               0.625rem;   /* 10px */
+  --text-2xs--line-height:  1rem;
+  --text-xs:                0.75rem;    /* 12px */
+  --text-xs--line-height:   1rem;
+  --text-sm:                0.875rem;   /* 14px */
+  --text-sm--line-height:   1.25rem;
+  --text-base:              1rem;       /* 16px */
   --text-base--line-height: 1.5rem;
-  --text-lg:               1.125rem;   /* 18px */
-  --text-lg--line-height:  1.75rem;
-  --text-xl:               1.25rem;    /* 20px */
-  --text-xl--line-height:  1.75rem;
-  --text-2xl:              1.5rem;     /* 24px */
-  --text-2xl--line-height: 2rem;
-  --text-3xl:              1.875rem;   /* 30px */
-  --text-3xl--line-height: 2.25rem;
-  --text-4xl:              2.25rem;    /* 36px */
-  --text-4xl--line-height: 2.5rem;
-  /* Display sizes — for balance & hero amounts */
-  --text-display:              3rem;   /* 48px */
-  --text-display--line-height: 1;
-  --text-display-xl:           4rem;   /* 64px */
+  --text-lg:                1.125rem;   /* 18px */
+  --text-lg--line-height:   1.75rem;
+  --text-xl:                1.25rem;    /* 20px */
+  --text-xl--line-height:   1.75rem;
+  --text-2xl:               1.5rem;     /* 24px */
+  --text-2xl--line-height:  2rem;
+  --text-3xl:               1.875rem;   /* 30px */
+  --text-3xl--line-height:  2.25rem;
+  --text-4xl:               2.25rem;    /* 36px */
+  --text-4xl--line-height:  2.5rem;
+  /* Display — balance / hero amounts — use Space Grotesk via font-numeric */
+  --text-display:               3rem;   /* 48px */
+  --text-display--line-height:  1;
+  --text-display-xl:            4rem;   /* 64px */
   --text-display-xl--line-height: 1;
-  --text-display-2xl:          5rem;   /* 80px — max hero balance */
+  --text-display-2xl:           5rem;   /* 80px */
   --text-display-2xl--line-height: 1;
 
   /* Font weights */
@@ -368,26 +228,26 @@
   --font-weight-semibold: 600;
   --font-weight-bold:     700;
 
-  /* --- Spacing scale (4px base) --- */
-  --spacing: 0.25rem; /* Tailwind v4 base unit — multiplied by utilities */
+  /* ── Spacing (4px base) ──────────────────────────────────── */
+  --spacing: 0.25rem;
 
-  /* --- Border radius --- */
+  /* ── Border radius ───────────────────────────────────────── */
   --radius-none: 0;
-  --radius-xs:   0.125rem;  /* 2px */
-  --radius-sm:   0.25rem;   /* 4px */
-  --radius:      0.5rem;    /* 8px — default card radius */
-  --radius-md:   0.75rem;   /* 12px */
-  --radius-lg:   1rem;      /* 16px — sheets, bottom cards */
-  --radius-xl:   1.25rem;   /* 20px */
-  --radius-2xl:  1.5rem;    /* 24px — modals */
+  --radius-xs:   0.125rem;   /* 2px */
+  --radius-sm:   0.25rem;    /* 4px */
+  --radius:      0.5rem;     /* 8px */
+  --radius-md:   0.75rem;    /* 12px */
+  --radius-lg:   1rem;       /* 16px */
+  --radius-xl:   1.25rem;    /* 20px */
+  --radius-2xl:  1.5rem;     /* 24px */
   --radius-full: 9999px;
 
-  /* --- Elevation / shadows --- */
+  /* ── Elevation / shadows ─────────────────────────────────── */
   --shadow-xs:    0 1px 2px 0 rgb(0 0 0 / 0.04);
   --shadow-sm:    0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.04);
   --shadow:       0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.04);
   --shadow-md:    0 8px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
-  --shadow-lg:    0 16px 32px -8px rgb(0 0 0 / 0.1),  0 8px 10px -6px rgb(0 0 0 / 0.04);
+  --shadow-lg:    0 16px 32px -8px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.04);
   --shadow-xl:    0 24px 48px -12px rgb(0 0 0 / 0.14);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 }
@@ -399,10 +259,11 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--surface-app);
   }
 
   body {
-    background-color: var(--surface-base);
+    background-color: var(--surface-app);
     color: var(--content-primary);
     font-family: var(--font-sans);
   }
@@ -412,15 +273,21 @@
    CUSTOM UTILITIES
    ------------------------------------------------------------ */
 @layer utilities {
-  /* Numeric/balance typography — tabular figures for alignment */
+  /*
+   * .font-numeric — tabular figures for all financial amounts.
+   * Uses Space Grotesk (--font-display) which has excellent
+   * numeral rendering and supports tnum feature.
+   * Apply to any element showing a currency value or balance.
+   */
   .font-numeric {
-    font-family: var(--font-numeric);
+    font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1;
   }
 
-  /* Lining figures variant */
+  /* Lining + tabular — for dense data tables */
   .lining-nums {
+    font-family: var(--font-display);
     font-variant-numeric: lining-nums tabular-nums;
     font-feature-settings: "lnum" 1, "tnum" 1;
   }

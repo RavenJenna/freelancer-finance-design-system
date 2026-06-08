@@ -7,7 +7,7 @@ import React, { forwardRef, useId } from 'react'
 export type ToggleSize = 'sm' | 'md'
 
 export interface ToggleProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id' | 'size' | 'type'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> {
   /** Visible label — always rendered or sr-only */
   label: string
   /** Hides label visually while remaining accessible */

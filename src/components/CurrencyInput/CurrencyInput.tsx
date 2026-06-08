@@ -13,7 +13,7 @@ import React, {
 export interface CurrencyInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    'id' | 'value' | 'defaultValue' | 'onChange' | 'type'
+    'value' | 'defaultValue' | 'onChange' | 'type'
   > {
   /** Visible label */
   label: string

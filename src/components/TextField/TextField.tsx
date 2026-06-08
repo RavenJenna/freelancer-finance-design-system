@@ -5,7 +5,7 @@ import React, { forwardRef, useId } from 'react'
 /* ─── types ──────────────────────────────────────────────────── */
 
 export interface TextFieldProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id'> {
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   /** Visible label — always rendered, even if visually hidden */
   label: string
   /** Hides label visually while keeping it accessible */
