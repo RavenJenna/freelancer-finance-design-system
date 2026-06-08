@@ -142,18 +142,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           .join(' ')}
         {...rest}
       >
-        {/* loading spinner overlays content */}
+        {/* loading spinner overlays content — wrapper is aria-hidden; SVG is too */}
         {loading && (
-          <span className="absolute inset-0 flex items-center justify-center">
+          <span
+            className="absolute inset-0 flex items-center justify-center"
+            aria-hidden="true"
+          >
             <Spinner size={spinnerSize[size]} variant={variant} />
           </span>
         )}
 
-        {/* content — hidden during loading to preserve layout width */}
+        {/* content — opacity-0 during loading: visually hidden but stays in the
+            accessibility tree so the button always has an accessible name.
+            `invisible` (visibility:hidden) must NOT be used here — it removes
+            the element (and its text) from the a11y tree, breaking button-name. */}
         <span
           className={[
             'inline-flex items-center gap-inherit',
-            loading ? 'invisible' : '',
+            loading ? 'opacity-0' : '',
             iconOnly ? 'sr-only' : '',
           ]
             .filter(Boolean)
