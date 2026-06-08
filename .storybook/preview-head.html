@@ -1,0 +1,25 @@
+<!--
+  Fonts for Storybook (Vite).
+
+  next/font/google loads fonts at build-time via Next.js and injects CSS
+  variables onto <html>; that pipeline does not run inside Storybook's
+  Vite dev server. This file is injected into the Storybook <head> so the
+  real fonts load and --ff-sans / --ff-display are defined, matching what
+  layout.tsx provides in the Next.js app.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  /*
+   * Mirror the CSS variables that next/font would apply to <html>.
+   * globals.css @theme inline reads these via var(--ff-sans) / var(--ff-display).
+   */
+  :root {
+    --ff-sans:    'Inter', system-ui, -apple-system, sans-serif;
+    --ff-display: 'Space Grotesk', system-ui, sans-serif;
+  }
+</style>
