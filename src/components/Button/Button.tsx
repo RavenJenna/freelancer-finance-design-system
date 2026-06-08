@@ -25,28 +25,25 @@ export interface ButtonProps
 const variantBase: Record<ButtonVariant, string> = {
   primary:
     'bg-accent text-content-on-accent border border-transparent ' +
-    'hover:bg-accent-emphasis active:bg-accent-emphasis ' +
-    'disabled:bg-content-disabled disabled:text-content-inverse ' +
-    'disabled:border-transparent disabled:cursor-not-allowed',
+    'hover:bg-accent-hover active:bg-accent-hover ' +
+    'disabled:opacity-50 disabled:cursor-not-allowed',
 
   secondary:
     'bg-surface-raised text-content-primary border border-border ' +
-    'hover:bg-surface-muted hover:border-border-strong ' +
-    'active:bg-surface-muted ' +
-    'disabled:bg-surface-muted disabled:text-content-disabled ' +
-    'disabled:border-border-muted disabled:cursor-not-allowed',
+    'hover:bg-surface-hover hover:border-border-strong ' +
+    'active:bg-surface-hover ' +
+    'disabled:opacity-50 disabled:cursor-not-allowed',
 
   ghost:
     'bg-transparent text-content-primary border border-transparent ' +
-    'hover:bg-surface-muted hover:border-border-muted ' +
-    'active:bg-surface-muted ' +
-    'disabled:text-content-disabled disabled:cursor-not-allowed',
+    'hover:bg-surface-hover ' +
+    'active:bg-surface-hover ' +
+    'disabled:opacity-50 disabled:cursor-not-allowed',
 
   danger:
-    'bg-danger text-content-on-accent border border-transparent ' +
-    'hover:bg-danger-emphasis active:bg-danger-emphasis ' +
-    'disabled:bg-content-disabled disabled:text-content-inverse ' +
-    'disabled:border-transparent disabled:cursor-not-allowed',
+    'bg-negative text-content-on-accent border border-transparent ' +
+    'hover:bg-negative-hover active:bg-negative-hover ' +
+    'disabled:opacity-50 disabled:cursor-not-allowed',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
