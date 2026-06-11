@@ -46,15 +46,17 @@ const variantBase: Record<ButtonVariant, string> = {
     'disabled:opacity-50 disabled:cursor-not-allowed',
 }
 
+// All sizes share the same corner radius token (--radius-md = 0.75rem = 12px).
+// To change button radius globally, update --radius-md in globals.css.
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-8  px-3   text-sm  gap-1.5 rounded-sm',
-  md: 'h-10 px-4   text-base gap-2  rounded',
+  sm: 'h-8  px-3   text-sm  gap-1.5 rounded-md',
+  md: 'h-10 px-4   text-base gap-2  rounded-md',
   lg: 'h-12 px-5   text-lg  gap-2.5 rounded-md',
 }
 
 const iconSizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-8  w-8  rounded-sm',
-  md: 'h-10 w-10 rounded',
+  sm: 'h-8  w-8  rounded-md',
+  md: 'h-10 w-10 rounded-md',
   lg: 'h-12 w-12 rounded-md',
 }
 
