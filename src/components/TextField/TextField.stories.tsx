@@ -1,36 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { expect } from 'storybook/test'
+import { Search, Mail, Eye, AlertCircle } from 'lucide-react'
 import { TextField } from './TextField'
-
-/* ─── inline icons ────────────────────────────────────────────── */
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M10.5 10.5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-)
-
-const MailIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M1.5 5l6.5 4.5L14.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-)
-
-const EyeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5Z" stroke="currentColor" strokeWidth="1.5"/>
-    <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5"/>
-  </svg>
-)
-
-const AlertIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M8 5v3.5M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-)
 
 /* ─── meta ────────────────────────────────────────────────────── */
 
@@ -131,7 +102,7 @@ export const LeadingIcon: Story = {
   args: {
     label: 'Search clients',
     placeholder: 'Search…',
-    leadingIcon: <SearchIcon />,
+    leadingIcon: <Search size={16} />,
   },
 }
 
@@ -144,7 +115,7 @@ export const TrailingIcon: Story = {
     type: 'password',
     placeholder: '••••••••',
     helperText: 'Minimum 8 characters.',
-    trailingIcon: <EyeIcon />,
+    trailingIcon: <Eye size={16} />,
   },
 }
 
@@ -156,7 +127,7 @@ export const EmailField: Story = {
     label: 'Email address',
     type: 'email',
     placeholder: 'you@example.com',
-    leadingIcon: <MailIcon />,
+    leadingIcon: <Mail size={16} />,
     helperText: 'Invoice receipts will be sent here.',
   },
 }
@@ -169,8 +140,8 @@ export const ErrorWithIcon: Story = {
     label: 'Email address',
     type: 'email',
     value: 'not-an-email',
-    leadingIcon: <MailIcon />,
-    trailingIcon: <AlertIcon />,
+    leadingIcon: <Mail size={16} />,
+    trailingIcon: <AlertCircle size={16} />,
     error: 'Enter a valid email address.',
   },
 }
@@ -183,7 +154,7 @@ export const HiddenLabel: Story = {
     label: 'Quick search',
     placeholder: 'Quick search…',
     hideLabel: true,
-    leadingIcon: <SearchIcon />,
+    leadingIcon: <Search size={16} />,
   },
 }
 
@@ -197,7 +168,7 @@ export const AllStates: Story = {
       <TextField label="With helper" placeholder="Has helper text" helperText="Some helpful hint below." />
       <TextField label="Error"      placeholder="Error state" error="This field is required." />
       <TextField label="Disabled"   value="Read-only value" disabled />
-      <TextField label="With icon"  placeholder="Search…" leadingIcon={<SearchIcon />} />
+      <TextField label="With icon"  placeholder="Search…" leadingIcon={<Search size={16} />} />
     </div>
   ),
 }

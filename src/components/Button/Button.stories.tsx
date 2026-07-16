@@ -1,23 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { expect } from 'storybook/test'
+import { Plus, ArrowRight, Trash2 } from 'lucide-react'
 import { Button } from './Button'
-
-/* ─── icons (inline SVG so no extra dep) ─────────────────────── */
-const PlusIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
-  </svg>
-)
-const ArrowIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-)
-const TrashIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M2 4h12M5 4V2h6v2M6 7v5M10 7v5M3 4l1 9h8l1-9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-)
 
 /* ─── meta ────────────────────────────────────────────────────── */
 
@@ -122,18 +106,18 @@ export const LoadingSecondary: Story = {
 
 export const WithLeadingIcon: Story = {
   name: 'With Leading Icon',
-  args: { iconLeft: <PlusIcon />, children: 'New invoice' },
+  args: { iconLeft: <Plus size={16} />, children: 'New invoice' },
 }
 
 export const WithTrailingIcon: Story = {
   name: 'With Trailing Icon',
-  args: { iconRight: <ArrowIcon />, children: 'Continue' },
+  args: { iconRight: <ArrowRight size={16} />, children: 'Continue' },
 }
 
 export const IconOnly: Story = {
   name: 'Icon-Only',
   args: {
-    iconLeft: <TrashIcon />,
+    iconLeft: <Trash2 size={16} />,
     iconOnly: true,
     variant: 'danger',
     size: 'md',

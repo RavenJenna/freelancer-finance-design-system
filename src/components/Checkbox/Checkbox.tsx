@@ -1,6 +1,7 @@
 'use client'
 
 import React, { forwardRef, useId } from 'react'
+import { Check, Minus } from 'lucide-react'
 
 /* ─── types ──────────────────────────────────────────────────── */
 
@@ -16,39 +17,14 @@ export interface CheckboxProps
   description?: string
 }
 
-/* ─── check mark SVGs ────────────────────────────────────────── */
+/* ─── check marks ─────────────────────────────────────────────── */
 
 const CheckMark = () => (
-  <svg
-    className="h-3 w-3 text-content-on-accent"
-    viewBox="0 0 12 12"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M2 6.5l3 3 5-6"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+  <Check className="h-3 w-3 text-content-on-accent" strokeWidth={2.5} aria-hidden="true" />
 )
 
 const IndeterminateMark = () => (
-  <svg
-    className="h-3 w-3 text-content-on-accent"
-    viewBox="0 0 12 12"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path
-      d="M2.5 6h7"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-    />
-  </svg>
+  <Minus className="h-3 w-3 text-content-on-accent" strokeWidth={2.5} aria-hidden="true" />
 )
 
 /* ─── component ──────────────────────────────────────────────── */
