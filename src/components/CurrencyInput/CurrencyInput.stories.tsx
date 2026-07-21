@@ -171,7 +171,7 @@ export const WithMinMax: Story = {
   name: 'Min/Max Clamping',
   args: {
     label: 'Late fee',
-    value: 50,
+    defaultValue: 50,
     min: 0,
     max: 500,
     helperText: 'Between $0 and $500.',

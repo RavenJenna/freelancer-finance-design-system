@@ -245,12 +245,12 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       'has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-1 '
 
     const wrapperState = hasError
-      ? 'border-danger has-[:focus-visible]:ring-danger has-[:focus-visible]:ring-offset-surface-base'
+      ? 'border-negative has-[:focus-visible]:ring-negative has-[:focus-visible]:ring-offset-surface-base'
       : 'border-border hover:border-border-strong ' +
         'has-[:focus-visible]:border-accent has-[:focus-visible]:ring-accent has-[:focus-visible]:ring-offset-surface-base'
 
     const wrapperDisabled = disabled
-      ? 'bg-surface-muted border-border-muted cursor-not-allowed'
+      ? 'bg-surface-hover cursor-not-allowed'
       : ''
 
     const inputClasses = [
@@ -266,14 +266,20 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       .filter(Boolean)
       .join(' ')
 
-    const symbolClasses = [
-      'font-numeric shrink-0 pl-3 pr-1.5 text-base select-none',
-      hasError ? 'text-danger-content' : 'text-content-secondary',
-      isFocused && !hasError ? 'text-accent-content' : '',
-      disabled ? 'text-content-disabled' : '',
-    ]
-      .filter(Boolean)
-      .join(' ')
+    // mutually exclusive — never combine with text-content-secondary, since
+    // Tailwind utility precedence depends on generated stylesheet order, not
+    // class-attribute order, so two color utilities on one element silently
+    // pick whichever comes later in the stylesheet rather than the DOM
+    const symbolColor = hasError
+      ? 'text-negative-text'
+      : disabled
+        ? 'text-content-disabled'
+        : isFocused
+          ? 'text-accent'
+          : 'text-content-secondary'
+
+    const symbolClasses =
+      'font-numeric shrink-0 pl-3 pr-1.5 text-base select-none ' + symbolColor
 
     return (
       <div
@@ -289,7 +295,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
           htmlFor={id}
           className={[
             'text-sm font-medium',
-            hasError ? 'text-danger-content' : 'text-content-primary',
+            hasError ? 'text-negative-text' : 'text-content-primary',
             disabled ? 'text-content-disabled' : '',
             hideLabel ? 'sr-only' : '',
           ]
@@ -342,7 +348,7 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
             id={helperId}
             className={[
               'text-sm',
-              hasError ? 'text-danger-content' : 'text-content-secondary',
+              hasError ? 'text-negative-text' : 'text-content-secondary',
             ].join(' ')}
             role={hasError ? 'alert' : undefined}
           >
