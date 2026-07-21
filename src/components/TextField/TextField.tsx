@@ -53,11 +53,11 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       'placeholder:text-content-tertiary ' +
       'border rounded transition-colors duration-100 ' +
       'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ' +
-      'disabled:bg-surface-muted disabled:text-content-disabled ' +
+      'disabled:bg-surface-hover disabled:text-content-disabled ' +
       'disabled:placeholder:text-content-disabled disabled:cursor-not-allowed'
 
     const inputState = hasError
-      ? 'border-danger focus:border-danger focus-visible:ring-danger focus-visible:ring-offset-surface-base'
+      ? 'border-negative focus:border-negative focus-visible:ring-negative focus-visible:ring-offset-surface-base'
       : 'border-border focus:border-accent focus-visible:ring-accent focus-visible:ring-offset-surface-base ' +
         'hover:border-border-strong'
 
@@ -127,7 +127,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             id={helperId}
             className={[
               'text-sm',
-              hasError ? 'text-danger-content' : 'text-content-secondary',
+              hasError ? 'text-negative-text' : 'text-content-secondary',
             ].join(' ')}
             role={hasError ? 'alert' : undefined}
           >

@@ -21,6 +21,7 @@
   --palette-rose-400: #FB7185;
   --palette-rose-500: #F43F5E;
   --palette-rose-600: #E11D48;
+  --palette-rose-700: #BE123C;
 
   /* Emerald — positive / income */
   --palette-emerald-400: #34D399;
@@ -75,6 +76,10 @@
   --positive:       var(--palette-emerald-500);  /* #10B981 */
   --negative:       var(--palette-rose-500);     /* #F43F5E */
   --negative-hover: var(--palette-rose-600);     /* #E11D48  – for danger hover */
+  /* supplementary: --negative fails WCAG AA (~3.4:1) for body text on light
+     surfaces; use this darker step for running text, keep --negative for
+     borders/icons/backgrounds where the 3:1 non-text threshold applies */
+  --negative-text:  var(--palette-rose-700);     /* #BE123C – 4.5:1+ on light surfaces */
   --warning:        var(--palette-amber-500);    /* #F59E0B */
 
   /* Finance buckets */
@@ -111,6 +116,8 @@
     --positive:       var(--palette-emerald-400);  /* #34D399 */
     --negative:       var(--palette-rose-400);     /* #FB7185 */
     --negative-hover: var(--palette-rose-500);     /* #F43F5E */
+    /* --negative (rose-400) already passes 6.7:1+ on dark surfaces */
+    --negative-text:  var(--negative);
     --warning:        var(--palette-amber-400);    /* #FBBF24 */
 
     --bucket-spendable: var(--palette-cyan-400);    /* #22D3EE */
@@ -142,6 +149,7 @@
   --positive:       var(--palette-emerald-400);
   --negative:       var(--palette-rose-400);
   --negative-hover: var(--palette-rose-500);
+  --negative-text:  var(--negative);
   --warning:        var(--palette-amber-400);
 
   --bucket-spendable: var(--palette-cyan-400);
@@ -181,6 +189,7 @@
   --color-positive: var(--positive);
   --color-negative: var(--negative);
   --color-negative-hover: var(--negative-hover);
+  --color-negative-text: var(--negative-text);
   --color-warning:  var(--warning);
 
   /* ── Color: buckets ──────────────────────────────────────── */
